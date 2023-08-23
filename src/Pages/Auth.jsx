@@ -1,11 +1,32 @@
+import axios from "axios";
+
 const Auth = (props) => {
 
     const onSubmit = (e) => {
 
         e.preventDefault();
         const { value } = e.target[0];
-        props.onAuth({ username: value, secret: value});
+        authenticate(value);
     };
+
+    function authenticate(username) {
+
+        const url = "http://localhost:3001/authenticate";
+        const body = {
+            username : username
+        };
+
+        axios.post(
+            url,
+            body    
+        )
+        .then( response => {
+            props.onAuth({ ...response.data, secret: value });
+        })
+        .catch( error => {
+            console.log('error', error);
+        });
+    }
 
 
     return (
