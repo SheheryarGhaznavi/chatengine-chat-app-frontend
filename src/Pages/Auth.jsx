@@ -2,12 +2,14 @@ import axios from "axios";
 
 const Auth = (props) => {
 
+
     const onSubmit = (e) => {
 
         e.preventDefault();
         const { value } = e.target[0];
         authenticate(value);
     };
+
 
     function authenticate(username) {
 
@@ -21,7 +23,7 @@ const Auth = (props) => {
             body    
         )
         .then( response => {
-            props.onAuth({ ...response.data, secret: value });
+            props.onAuth({ ...response.data, secret: username });
         })
         .catch( error => {
             console.log('error', error);
